@@ -13,9 +13,15 @@
   .field
     = form.label :content
     = form.text_area :content
-  .field
-    = form.label :do_not_publish
-    = form.check_box :do_not_publish
+  - if form.object.new_record?
+    .field
+      = form.label :do_not_publish
+      = form.check_box :do_not_publish
+  - else
+    .field
+      = form.label :created_at
+      = form.date_select :created_at
+
 
   .actions
     = form.submit
