@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :require_valid_user!, except: [:index, :show]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   # GET /posts
@@ -64,11 +65,11 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = current_user.posts.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :published, :user_id)
+      params.require(:post).permit(:title, :content, :do_not_publish)
     end
 end

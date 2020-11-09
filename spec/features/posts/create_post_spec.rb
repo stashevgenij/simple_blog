@@ -7,26 +7,25 @@ feature 'Creating posts' do
     let(:title) { 'Test Post' }
     let(:content) { 'Content to test post.' }
 
-    before(:each) do |check_do_not_publish|
+    before(:each) do |scenario|
       sign_in user
       visit '/'
       click_link 'New Post'
       fill_in 'Title', with: title
       fill_in 'Content', with: content
-      check "Don't publish" unless check_do_not_publish
+      check "Do not publish" if scenario.description == 'can create unpublished post'
       click_button 'Create Post'
       expect(page).to have_content(title)
       expect(page).to have_content(content)
-    end
-
-    scenario 'can create a post', false do
-      expect(page).to have_content("Publication date: ")
       expect(Post.last).to have_attributes(title: title, content: content)
     end
 
-    scenario 'can create unpublished post', true do
-      expect(page).to have_content("Creation date: ")
-      expect(Post.last).to have_attributes(title: title, content: content)
+    scenario 'can create a post', :test do
+      expect(page).not_to have_content("(unpublished)")
+    end
+
+    scenario 'can create unpublished post' do
+      expect(page).to have_content("(unpublished)")
     end
   end
 

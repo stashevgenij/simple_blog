@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_11_08_232735) do
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.boolean "published"
+    t.boolean "published", default: true
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

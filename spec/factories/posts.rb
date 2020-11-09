@@ -1,8 +1,7 @@
 FactoryBot.define do
-  factory :post do
-    title { "MyString" }
-    content { "MyText" }
-    published { false }
-    user { nil }
+  factory :post do |user|
+    title { "Test Post" }
+    content { "Content to test post." }
+    user { create :user }
   end
 end
