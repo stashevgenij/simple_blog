@@ -20,7 +20,7 @@ feature 'Creating posts' do
       expect(Post.last).to have_attributes(title: title, content: content)
     end
 
-    scenario 'can create a post', :test do
+    scenario 'can create a post' do
       expect(page).not_to have_content("(unpublished)")
     end
 
