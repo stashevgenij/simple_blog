@@ -45,8 +45,8 @@ RSpec.describe Post, type: :model do
     end
 
     it "orders posts descending created_at" do
-      first_post_later_than_last = Post.published.first.created_at > Post.published.last.created_at
-      first_post_later_than_second = Post.published.first.created_at > Post.published.second.created_at
+      first_post_later_than_last = Post.ordered.first.created_at > Post.ordered.last.created_at
+      first_post_later_than_second = Post.ordered.first.created_at > Post.ordered.second.created_at
       expect(first_post_later_than_last && first_post_later_than_second).to eq(true)
     end
   end

@@ -5,14 +5,14 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.published.paginate(page: params[:page], per_page: 5)
+    @posts = Post.published.ordered.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
     if user_signed_in?
-      @post = current_user.posts.merge(Post.published).find(params[:id])      
+      @post = current_user.posts.or(Post.published).find(params[:id])      
     else
       @post = Post.published.find(params[:id])
     end
