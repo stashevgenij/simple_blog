@@ -128,18 +128,11 @@ describe PostsController do
       end
     end
 
-    describe 'deletes post' do
-      it 'redirects to posts' do
-        delete :destroy, params: {id: blog_post}
+    it 'deletes post' do
+      delete :destroy, params: {id: blog_post}
 
-        expect(response).to redirect_to(posts_path)
-      end
-
-      it 'deletes post' do
-        delete :destroy, params: {id: blog_post}
-
-        expect(Post.exists?(blog_post.id)).to be_falsy
-      end
+      expect(response).to redirect_to(posts_path)
+      expect(Post.exists?(blog_post.id)).to be_falsy
     end
   end
 end

@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user
+  has_many :comments
 
   attr_accessor :do_not_publish
 
@@ -7,7 +8,6 @@ class Post < ApplicationRecord
   validates :content, presence: true
 
   scope :published, -> { where(published: true) }
-  scope :ordered,   -> { order(created_at: :desc) }
 
   def do_not_publish=(value)
     self.published = value == "1" ? false : true
