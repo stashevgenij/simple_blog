@@ -1,12 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
-  let(:tag) { create :tag }
 
   context '(validations)' do
-    subject { tag }
+    it "ensures the tag name is present" do
+      tag = Tag.new(attributes_for :tag, tag_name: "")
+      expect(tag.valid?).to eq(false)
+    end
 
-    it { is_expected.to validate_presence_of(:tag_name) }
-    it { is_expected.to validate_uniqueness_of(:tag_name).case_insensitive }
+    it "ensures the tag name is present" do
+      tag        = Tag.new(attributes_for :tag, tag_name: "tag1")
+      second_tag = Tag.new(attributes_for :tag, tag_name: "tag1")
+      third_tag  = Tag.new(attributes_for :tag, tag_name: "TAG1")
+      tag.save
+      expect(second_tag.valid?).to eq(false)   
+      expect(third_tag.valid?).to  eq(false)      
+    end
+
+    it "should be able to save tag" do
+      tag = build :tag
+      expect(tag.save).to eq(true)
+    end
   end
 end

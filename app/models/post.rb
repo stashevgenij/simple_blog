@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :comments
-  has_many :taggins, dependent: :destroy
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
   attr_writer   :do_not_publish
@@ -17,8 +17,8 @@ class Post < ApplicationRecord
   end
 
   def tags_string=(string)
-    self.tags = string.split(',').map do |name|
-      Tag.where(name: tag_name.strip).first_or_create!
+    self.tags = string.split(',').map do |tag_name|
+      Tag.where(tag_name: tag_name.strip).first_or_create!
     end
   end
 

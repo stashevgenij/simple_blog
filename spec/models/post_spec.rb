@@ -4,7 +4,7 @@ RSpec.describe Post, type: :model do
 
   let(:user) { create :user }
 
-  context "validations tests" do
+  context "(validations)" do
     it "ensures the user is present" do
       post = Post.new(content: "Content to test post.", title: "Test Post")
       expect(post.valid?).to eq(false)
@@ -30,7 +30,7 @@ RSpec.describe Post, type: :model do
     end
   end
 
-  context "scopes tests" do
+  context "(scopes)" do
     let(:params) { { content: "Content to test post.", title: "Test Post" } }
     before(:each) do
       user.posts.create(params)
@@ -51,18 +51,18 @@ RSpec.describe Post, type: :model do
     end
   end
 
-  describe "#tags_string="
+  describe "#tags_string=" do
     it 'deserializes tags from a comma-separated string' do
       post = build :post, tags_string: 'abc, xyz'
 
-      expect(post.tags.map(&:name)).to eq %w[abc xyz]
+      expect(post.tags.map(&:tag_name)).to eq %w[abc xyz]
     end
   end
 
-  describe "#tags_string"
+  describe "#tags_string" do
     it 'serializes tags to a comma-separated string' do
-      tag_abc = build :tag, name: 'abc'
-      tag_xyz = build :tag, name: 'xyz'
+      tag_abc = build :tag, tag_name: 'abc'
+      tag_xyz = build :tag, tag_name: 'xyz'
 
       post = build :post, tags: [tag_abc, tag_xyz]
 

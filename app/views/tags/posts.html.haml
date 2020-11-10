@@ -1,0 +1,6 @@
+%p#notice= notice
+%h1 
+  Posts with tag
+  = @tag.tag_name
+
+= render partial: "posts/list_posts", locals: { posts: @posts }

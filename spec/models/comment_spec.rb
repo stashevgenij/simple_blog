@@ -6,7 +6,7 @@ RSpec.describe Comment, type: :model do
   let(:post) { create :post, user: user }
   let(:comment_text) { "Test comment." }
 
-  context "validations tests" do
+  context "(validations)" do
     it "ensures the author is present" do
       comment = post.comments.new(text: comment_text)
       expect(comment.valid?).to eq(false)
@@ -33,7 +33,7 @@ RSpec.describe Comment, type: :model do
     end
   end
 
-  context "scopes tests" do
+  context "(scopes)" do
     let(:params) { { text: comment_text, post: post } }
     before(:each) do
       user.comments.create(params)

@@ -1,0 +1,3 @@
+.tag-cloud
+  - Tag.all.each do |t|
+    .tag-cloud-item{css: "font-size: #{calculate_tag_size(t)}px"}= link_to t.tag_name, posts_tag_path(t)
