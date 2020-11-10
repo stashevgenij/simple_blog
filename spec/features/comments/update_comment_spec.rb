@@ -4,7 +4,7 @@ feature 'Editing comment', js: false do
   let(:user)    { create :user }
   let(:villain) { create :user }
   let(:post)    { create :post, user: user }
-  let(:comment) { create :comment, user: user, post: post}
+  let!(:comment) { create :comment, user: user, post: post}
 
   context 'just created comment' do
 
@@ -23,7 +23,7 @@ feature 'Editing comment', js: false do
       click_on "Edit comment"
       
 
-      fill_in 'Text', with: 'Edited comment.'
+      fill_in 'comment_text', with: 'Edited comment.'
       click_on 'Update Comment'
 
       expect(page).to have_content 'Edited comment.'

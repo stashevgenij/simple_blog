@@ -15,10 +15,12 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     if user_signed_in?
-      @post = current_user.posts.or(Post.published).find(params[:id])      
+      @post = current_user.posts.or(Post.published).find(params[:id])    
+      @comment = current_user.comments.new(post: @post)  
     else
       @post = Post.published.find(params[:id])
     end
+    @comments = @post.comments.includes(:user)
   end
 
   # GET /posts/new

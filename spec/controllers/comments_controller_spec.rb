@@ -15,7 +15,7 @@ describe CommentsController do
     end
 
     it 'cannot update comment' do
-      put :update, params: {id: comment}
+      put :update, params: {post_id: blog_post, id: comment}
 
       expect(response).to redirect_to(new_user_session_url)
     end
@@ -63,13 +63,13 @@ describe CommentsController do
         end
 
         it 'redirects to post' do
-          put :update, params: {id: comment, comment: valid_comment}
+          put :update, params: {id: comment, comment: valid_comment, post_id: blog_post}
 
           expect(response).to redirect_to(blog_post)
         end
 
         it 'updates comment' do
-          put :update, params: {id: comment, comment: valid_comment}
+          put :update, params: {id: comment, comment: valid_comment, post_id: blog_post}
 
           expect(comment.reload.text).to eq('Edited comment.')
         end
@@ -79,7 +79,7 @@ describe CommentsController do
             sign_in villain
 
             expect do
-              put :update, params: {id: comment, comment: valid_comment}
+              put :update, params: {id: comment, comment: valid_comment, post_id: blog_post}
             end.to raise_error(ActiveRecord::RecordNotFound)
           end
         end
@@ -89,7 +89,7 @@ describe CommentsController do
         it 'does not update comment' do
           invalid_comment = attributes_for :comment, text: '', user: user, post: blog_post
 
-          put :update, params: {id: comment, comment: invalid_comment}
+          put :update, params: {id: comment, comment: invalid_comment, post_id: blog_post}
 
           expect(comment.reload.text).not_to eq('')
         end

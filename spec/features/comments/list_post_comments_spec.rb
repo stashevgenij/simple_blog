@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 feature 'List post comments', js: false do
-  let(:user)    { create :user }
-  let(:post)    { create :post, user: user }
-  let(:comment) { create_list :comment, count: 5, user: user, post: post}
+  let(:user)      { create :user }
+  let(:post)      { create :post, user: user }
+  let!(:comments) { create_list :comment, 5, user: user, post: post}
 
   scenario 'user sees 5 comments' do
     visit post_path(post)

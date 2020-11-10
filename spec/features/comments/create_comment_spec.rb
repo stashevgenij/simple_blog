@@ -12,8 +12,8 @@ feature 'Creating comments' do
     scenario 'can create a comment' do
       sign_in commentator
       visit post_path(post)
-      fill_in 'Text', with: comment_text
-      click_button 'Save Comment'
+      fill_in 'comment_text', with: comment_text
+      click_button 'Create Comment'
       expect(page).to have_content(comment_text)
       expect(page).to have_content("Author: #{commentator.email}")
       expect(post.comments.last).to have_attributes(text: comment_text)      
@@ -24,8 +24,7 @@ feature 'Creating comments' do
     scenario 'cannot create a comment' do
       sign_in user
       visit post_path(post)
-      puts page.body
-      expect(page).not_to have_css("")   
+      expect(page).not_to have_css("textare#comment_text")   
     end
   end
 end

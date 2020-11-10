@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature 'Deleting article', js: false do
+feature 'Deleting post', js: false do
   let(:user)    { create :user }
   let(:post)    { create :post, user: user }
 
-  scenario 'user deletes article' do
+  scenario 'user deletes post' do
     sign_in user
 
     visit post_path(post)    

@@ -1,0 +1,9 @@
+.comment-text
+  = comment.text
+.comment-author
+  Author:
+  = comment.user.email
+
+- if comment.editable? && comment.user == current_user
+  .edit-comment-link
+    = link_to 'Edit comment', edit_comment_path(comment)

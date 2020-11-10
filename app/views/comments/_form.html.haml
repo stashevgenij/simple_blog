@@ -1,4 +1,4 @@
-= form_with(model: comment, local: true) do |form|
+= form_with(model: [comment.post, comment], local: true) do |form|
   - if comment.errors.any?
     #error_explanation
       %h2
@@ -8,7 +8,7 @@
         - comment.errors.full_messages.each do |message|
           %li= message
   .field
-    = form.text_area :content
+    = form.text_area :text
 
 
   .actions
