@@ -2,6 +2,9 @@ class PostsController < ApplicationController
   before_action :require_valid_user!, except: [:index, :show]
   before_action :set_post, only: [:edit, :update, :destroy]
 
+  caches_page :index
+  caches_action :index, :show
+
   # GET /posts
   # GET /posts.json
   def index

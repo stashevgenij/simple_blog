@@ -46,5 +46,13 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'haml'
+
+# Authentication
 gem 'devise'
+
+# Pagination
 gem 'will_paginate', '~> 3.1.0'
+
+# Caching pages/actions
+gem "actionpack-page_caching"
+gem 'actionpack-action_caching'
