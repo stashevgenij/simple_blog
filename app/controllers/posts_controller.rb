@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :require_valid_user!, except: [:index, :show]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
@@ -11,6 +11,11 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    if user_signed_in?
+      @post = current_user.posts.merge(Post.published).find(params[:id])      
+    else
+      @post = Post.published.find(params[:id])
+    end
   end
 
   # GET /posts/new
