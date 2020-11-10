@@ -1,5 +1,4 @@
 require 'rails_helper.rb'
-require 'support/devise.rb'
 
 feature 'Creating posts' do
   context 'when user logged in' do
