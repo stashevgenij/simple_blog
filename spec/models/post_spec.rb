@@ -50,4 +50,23 @@ RSpec.describe Post, type: :model do
       expect(first_post_later_than_last && first_post_later_than_second).to eq(true)
     end
   end
+
+  describe "#tags_string="
+    it 'deserializes tags from a comma-separated string' do
+      post = build :post, tags_string: 'abc, xyz'
+
+      expect(post.tags.map(&:name)).to eq %w[abc xyz]
+    end
+  end
+
+  describe "#tags_string"
+    it 'serializes tags to a comma-separated string' do
+      tag_abc = build :tag, name: 'abc'
+      tag_xyz = build :tag, name: 'xyz'
+
+      post = build :post, tags: [tag_abc, tag_xyz]
+
+      expect(post.tags_string).to eq 'abc, xyz'
+    end
+  end
 end

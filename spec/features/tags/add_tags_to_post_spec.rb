@@ -1,15 +1,7 @@
 require 'rails_helper.rb'
+require 'helpers/have_tags_matcher.rb'
 
 feature 'Adding tags to post' do
-
-  RSpec::Matchers.define :have_tags do |tags|
-    match do |page|       
-      expect(page).to have_content(tags[0])
-      expect(page).to have_content(tags[1])
-      expect(page).to have_content(tags[2])
-      expect(Post.last.tags.map(&:tag_name)).to eq(tags)      
-    end
-  end
 
   let(:user) { create :user }
   let(:post) { build  :post, user: user }
@@ -27,6 +19,7 @@ feature 'Adding tags to post' do
     fill_in 'Tags',    with: tags.join(", ")
     click_button 'Create Post'
 
+    # Custom matcher from support/helpers/have_tags_matcher.rb
     expect(page).to have_tags(tags)
   end
 
@@ -37,6 +30,7 @@ feature 'Adding tags to post' do
     fill_in 'Tags', with: tags.join(", ")
     click_button 'Update Post'
 
+    # Custom matcher from support/helpers/have_tags_matcher.rb
     expect(page).to have_tags(tags)
   end
 end
