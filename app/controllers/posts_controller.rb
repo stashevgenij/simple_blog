@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.published.ordered.paginate(page: params[:page], per_page: 5)
+    @posts = Post.includes(:user).published.ordered.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /posts/1
@@ -70,10 +70,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def my_posts
+    @posts = current_user.posts.includes(:user).ordered.paginate(page: params[:page], per_page: 5)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = current_user.posts.find(params[:id])
+      @post = current_user.posts.includes(:user).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

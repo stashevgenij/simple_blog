@@ -1,7 +1,7 @@
 require 'rails_helper.rb'
 
 feature 'Listing posts' do  
-  let(:user) { create :user }
+  let(:user)               { create :user }
   let!(:published_posts)   { create_list :post, 6, user: user }
   let!(:unpublished_posts) { create_list :post, 6, :unpublished, user: user }
 

@@ -44,6 +44,12 @@ describe PostsController do
 
       expect(response).to redirect_to(new_user_session_url)
     end
+
+    it 'cannot get my posts' do
+      get :my_posts
+
+      expect(response).to redirect_to(new_user_session_url)
+    end
   end
 
   context 'when signed in' do

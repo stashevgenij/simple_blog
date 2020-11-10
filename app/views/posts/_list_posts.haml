@@ -1,0 +1,16 @@
+%table
+  %thead
+    %tr
+      %th Title
+      %th Content
+      %th Published
+      %th User
+      %th{colspan: "3"}
+  %tbody
+    - posts.each do |post|
+      - cache post do
+        = render post
+%br/
+= link_to 'New Post', new_post_path
+
+= will_paginate posts

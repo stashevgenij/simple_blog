@@ -1,0 +1,12 @@
+%tr
+  %td= post.title
+  %td= post.content
+  %td= post.published
+  %td
+    = post.user.email
+    %br
+    Registration date:
+    = post.user.created_at.strftime("%F")
+  %td= link_to 'Show', post
+  %td= link_to 'Edit', edit_post_path(post)
+  %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
