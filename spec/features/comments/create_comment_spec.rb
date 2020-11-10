@@ -21,7 +21,7 @@ feature 'Creating comments' do
   end
 
   context 'when user is a guest' do
-    scenario 'can create a comment' do
+    scenario 'cannot create a comment' do
       sign_in user
       visit post_path(post)
       puts page.body
