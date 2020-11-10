@@ -4,9 +4,10 @@ class Post < ApplicationRecord
   has_many :taggins, dependent: :destroy
   has_many :tags, through: :taggings
 
-  attr_accessor :do_not_publish
+  attr_writer   :do_not_publish
+  attr_accessor :tags_string
 
-  validates :title, presence: true
+  validates :title,   presence: true
   validates :content, presence: true
 
   scope :published, -> { where(published: true) }
