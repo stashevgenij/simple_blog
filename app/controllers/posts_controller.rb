@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :destroy]
 
   caches_page :index
-  caches_action :index, :show
+  caches_action :show
 
   # GET /posts
   # GET /posts.json
