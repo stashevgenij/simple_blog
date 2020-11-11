@@ -18,7 +18,7 @@ feature 'Editing post', js: false do
 
     expect(page).to have_content 'Edited Title'
     expect(page).to have_content 'Edited content.'
-    expect(page).to have_content yesterday_date.strftime("%F")
+    expect(page).to have_content yesterday_date.strftime('%F')
     expect(post.reload).to have_attributes(title: 'Edited Title', content: 'Edited content.')
     expect(post.reload.created_at).to be_within(1.minute).of yesterday_date
   end

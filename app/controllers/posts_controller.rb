@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :require_valid_user!, except: [:index, :show]
-  before_action :set_post, only: [:edit, :update, :destroy]
+  before_action :require_valid_user!, except: %i[index show]
+  before_action :set_post, only: %i[edit update destroy]
 
   caches_page :index
   caches_action :show
@@ -15,8 +15,8 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     if user_signed_in?
-      @post = current_user.posts.or(Post.published).find(params[:id])    
-      @comment = current_user.comments.new(post: @post)  
+      @post = current_user.posts.or(Post.published).find(params[:id])
+      @comment = current_user.comments.new(post: @post)
     else
       @post = Post.published.find(params[:id])
     end
@@ -29,8 +29,7 @@ class PostsController < ApplicationController
   end
 
   # GET /posts/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /posts
   # POST /posts.json
@@ -77,13 +76,14 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = current_user.posts.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:title, :content, :do_not_publish, :created_at, :tags_string)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = current_user.posts.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.require(:post).permit(:title, :content, :do_not_publish, :created_at, :tags_string)
+  end
 end

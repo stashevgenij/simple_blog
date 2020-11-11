@@ -5,22 +5,22 @@ class Comment < ApplicationRecord
   validates :text, presence: true, length: { minimum: 1, maximum: 600 }
 
   def editable?
-    Time.now - self.created_at < 15.minutes
+    Time.now - created_at < 15.minutes
   end
 
-  def update_by(params, user)
-    self.update(params) if validate_is_editable
+  def update_by(params, _user)
+    update(params) if validate_is_editable
   end
 
-  def destroy_by(user)
-    self.destroy if validate_is_editable
+  def destroy_by(_user)
+    destroy if validate_is_editable
   end
 
   private
 
   def validate_is_editable
-    if self.persisted? && !self.editable?
-      self.errors[:editable] << "can edit/delete in just 15 minutes after creation"
+    if persisted? && !editable?
+      errors[:editable] << 'can edit/delete in just 15 minutes after creation'
       false
     else
       true

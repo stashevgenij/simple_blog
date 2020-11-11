@@ -1,11 +1,10 @@
-require 'rails_helper.rb'
-require './spec/support/helpers/have_tags_matcher.rb'
+require 'rails_helper'
+require './spec/support/helpers/have_tags_matcher'
 
 feature 'Adding tags to post' do
-
   let(:user) { create :user }
   let(:post) { build  :post, user: user }
-  let(:tags) { ["tag1", "tag2", "tag3"] }
+  let(:tags) { %w[tag1 tag2 tag3] }
 
   before(:each) do
     sign_in user
@@ -16,7 +15,7 @@ feature 'Adding tags to post' do
 
     fill_in 'Title',   with: post.title
     fill_in 'Content', with: post.content
-    fill_in 'Tags',    with: tags.join(", ")
+    fill_in 'Tags',    with: tags.join(', ')
     click_button 'Save Post'
 
     expect(Post.last.tags.map(&:tag_name)).to eq(tags)
@@ -30,8 +29,8 @@ feature 'Adding tags to post' do
   scenario 'can add tags to the post' do
     post.save
 
-    visit edit_post_path(post)    
-    fill_in 'Tags', with: tags.join(", ")
+    visit edit_post_path(post)
+    fill_in 'Tags', with: tags.join(', ')
     click_button 'Save Post'
 
     # Custom matcher from support/helpers/have_tags_matcher.rb

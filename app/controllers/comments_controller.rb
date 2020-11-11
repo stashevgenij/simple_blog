@@ -1,13 +1,12 @@
 class CommentsController < ApplicationController
   before_action :require_valid_user!
-  before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :set_comment, only: %i[edit update destroy]
 
-  def edit
-  end
+  def edit; end
 
   def create
     @post = Post.published.find(params[:post_id])
-    @comment = current_user.comments.new(comment_params.merge({post: @post}))
+    @comment = current_user.comments.new(comment_params.merge({ post: @post }))
 
     respond_to do |format|
       if @comment.save
@@ -41,13 +40,14 @@ class CommentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-      @comment = current_user.comments.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def comment_params
-      params.require(:comment).permit(:text)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_comment
+    @comment = current_user.comments.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def comment_params
+    params.require(:comment).permit(:text)
+  end
 end

@@ -1,6 +1,6 @@
-require 'rails_helper.rb'
+require 'rails_helper'
 
-feature 'Listing my posts' do  
+feature 'Listing my posts' do
   let(:user)              { create :user }
   let(:other_user)        { create :user }
   let!(:published_post)   { create :post, user: user }
@@ -16,7 +16,7 @@ feature 'Listing my posts' do
     expect(page).to have_text('Test Unpublished Post')
   end
 
-  scenario "other user see no posts" do
+  scenario 'other user see no posts' do
     sign_in other_user
 
     visit '/'

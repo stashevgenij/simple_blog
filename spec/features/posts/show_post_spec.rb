@@ -6,7 +6,6 @@ feature 'Reading post', js: false do
   let(:unpublished_post) { create :post, :unpublished, user: user }
 
   context 'guest' do
-
     scenario 'reads published post' do
       visit post_path(post)
 
@@ -17,11 +16,10 @@ feature 'Reading post', js: false do
     scenario "can't read unpublished post" do
       expect { visit post_path(unpublished_post) }.to raise_exception(ActiveRecord::RecordNotFound)
     end
-
   end
 
   context 'user' do
-    let(:villain) { create :user}
+    let(:villain) { create :user }
 
     scenario 'reads his unpublished post' do
       sign_in user
@@ -35,6 +33,5 @@ feature 'Reading post', js: false do
       sign_in villain
       expect { visit post_path(unpublished_post) }.to raise_exception(ActiveRecord::RecordNotFound)
     end
-
   end
 end

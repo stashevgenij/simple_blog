@@ -4,16 +4,13 @@ class Post < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
-  attr_writer   :do_not_publish
-  attr_accessor :tags_string
-
   validates :title,   presence: true
   validates :content, presence: true
 
   scope :published, -> { where(published: true) }
 
   def do_not_publish=(value)
-    self.published = value == "1" ? false : true
+    self.published = !(value == '1')
   end
 
   def tags_string=(string)

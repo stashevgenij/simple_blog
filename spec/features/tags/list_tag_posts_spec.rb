@@ -10,10 +10,10 @@ feature 'List all tags', js: false do
   end
 
   scenario 'user can get to tag page with posts' do
-    expect(page).to have_css("h1", text: "Posts with tag #{tag.tag_name}")
+    expect(page).to have_css('h1', text: "Posts with tag #{tag.tag_name}")
   end
 
   scenario 'user sees posts only with clicked tag' do
-    expect(page).to have_content("Test Post", count: 2)
+    expect(page).to have_content('Test Post', count: 2)
   end
 end

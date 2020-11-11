@@ -4,10 +4,9 @@ describe CommentsController do
   let(:user)      { create :user }
   let(:blog_post) { create :post, user: user }
   let(:comment)   { create :comment, user: user, post: blog_post }
-  let(:comment_text) { "Test comment." }
+  let(:comment_text) { 'Test comment.' }
 
   context 'when not signed in' do
-
     it 'cannot create comment' do
       post :create, params: { post_id: blog_post }
 
@@ -15,13 +14,13 @@ describe CommentsController do
     end
 
     it 'cannot update comment' do
-      put :update, params: {post_id: blog_post, id: comment}
+      put :update, params: { post_id: blog_post, id: comment }
 
       expect(response).to redirect_to(new_user_session_url)
     end
 
     it 'cannot delete comment' do
-      delete :destroy, params: {id: blog_post}
+      delete :destroy, params: { id: blog_post }
 
       expect(response).to redirect_to(new_user_session_url)
     end
@@ -59,17 +58,17 @@ describe CommentsController do
     describe 'updates comment' do
       context '(valid data)' do
         let(:valid_comment) do
-          attributes_for :comment, text: "Edited comment.", user: user, post: blog_post
+          attributes_for :comment, text: 'Edited comment.', user: user, post: blog_post
         end
 
         it 'redirects to post' do
-          put :update, params: {id: comment, comment: valid_comment, post_id: blog_post}
+          put :update, params: { id: comment, comment: valid_comment, post_id: blog_post }
 
           expect(response).to redirect_to(blog_post)
         end
 
         it 'updates comment' do
-          put :update, params: {id: comment, comment: valid_comment, post_id: blog_post}
+          put :update, params: { id: comment, comment: valid_comment, post_id: blog_post }
 
           expect(comment.reload.text).to eq('Edited comment.')
         end
@@ -79,7 +78,7 @@ describe CommentsController do
             sign_in villain
 
             expect do
-              put :update, params: {id: comment, comment: valid_comment, post_id: blog_post}
+              put :update, params: { id: comment, comment: valid_comment, post_id: blog_post }
             end.to raise_error(ActiveRecord::RecordNotFound)
           end
         end
@@ -89,7 +88,7 @@ describe CommentsController do
         it 'does not update comment' do
           invalid_comment = attributes_for :comment, text: '', user: user, post: blog_post
 
-          put :update, params: {id: comment, comment: invalid_comment, post_id: blog_post}
+          put :update, params: { id: comment, comment: invalid_comment, post_id: blog_post }
 
           expect(comment.reload.text).not_to eq('')
         end
@@ -97,7 +96,7 @@ describe CommentsController do
     end
 
     it 'deletes comment' do
-      delete :destroy, params: {id: comment}
+      delete :destroy, params: { id: comment }
 
       expect(response).to redirect_to(blog_post)
       expect(Comment.exists?(comment.id)).to be_falsy

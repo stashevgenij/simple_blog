@@ -7,9 +7,8 @@ feature 'Deleting post', js: false do
   scenario 'user deletes post' do
     sign_in user
 
-    visit post_path(post)    
+    visit post_path(post)
 
     expect { click_on 'Delete Post' }.to change(Post, :count).by(-1)
   end
-
 end

@@ -5,13 +5,12 @@ describe PostsController do
   let(:blog_post) { create :post, user: user }
 
   context 'when not signed in' do
-
     it 'cannot view unpublished post' do
       user = create :user
       blog_post = create :post, :unpublished, user: user
 
       expect do
-        get :show, params: {id: blog_post.id}
+        get :show, params: { id: blog_post.id }
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
@@ -28,19 +27,19 @@ describe PostsController do
     end
 
     it 'cannot edit post' do
-      get :edit, params: {id: blog_post}
+      get :edit, params: { id: blog_post }
 
       expect(response).to redirect_to(new_user_session_url)
     end
 
     it 'cannot update post' do
-      put :update, params: {id: blog_post}
+      put :update, params: { id: blog_post }
 
       expect(response).to redirect_to(new_user_session_url)
     end
 
     it 'cannot delete post' do
-      delete :destroy, params: {id: blog_post}
+      delete :destroy, params: { id: blog_post }
 
       expect(response).to redirect_to(new_user_session_url)
     end
@@ -89,17 +88,16 @@ describe PostsController do
           attributes_for :post, title: 'Edited Title',
                                 content: 'Edited content.',
                                 created_at: yesterday
-
         end
 
         it 'redirects to post' do
-          put :update, params: {id: blog_post, post: valid_post}
+          put :update, params: { id: blog_post, post: valid_post }
 
           expect(response).to redirect_to(blog_post)
         end
 
         it 'updates post' do
-          put :update, params: {id: blog_post, post: valid_post}
+          put :update, params: { id: blog_post, post: valid_post }
 
           expect(blog_post.reload.title).to eq('Edited Title')
           expect(blog_post.reload.content).to eq('Edited content.')
@@ -111,7 +109,7 @@ describe PostsController do
             sign_in villain
 
             expect do
-              put :update, params: {id: blog_post, post: valid_post}
+              put :update, params: { id: blog_post, post: valid_post }
             end.to raise_error(ActiveRecord::RecordNotFound)
           end
         end
@@ -121,7 +119,7 @@ describe PostsController do
         it 'does not update post' do
           invalid_post = attributes_for :post, title: '', content: ''
 
-          put :update, params: {id: blog_post, post: invalid_post}
+          put :update, params: { id: blog_post, post: invalid_post }
 
           expect(blog_post.reload.title).not_to eq('')
         end
@@ -129,7 +127,7 @@ describe PostsController do
     end
 
     it 'deletes post' do
-      delete :destroy, params: {id: blog_post}
+      delete :destroy, params: { id: blog_post }
 
       expect(response).to redirect_to(posts_path)
       expect(Post.exists?(blog_post.id)).to be_falsy

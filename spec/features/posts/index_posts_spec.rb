@@ -1,6 +1,6 @@
-require 'rails_helper.rb'
+require 'rails_helper'
 
-feature 'Listing posts' do  
+feature 'Listing posts' do
   let(:user)               { create :user }
   let!(:published_posts)   { create_list :post, 6, user: user }
   let!(:unpublished_posts) { create_list :post, 6, :unpublished, user: user }
@@ -29,6 +29,6 @@ feature 'Listing posts' do
     visit posts_path
 
     expect(page).to have_text(user.email, count: 5)
-    expect(page).to have_text(user.created_at.strftime("%F"), count: 5)
+    expect(page).to have_text(user.created_at.strftime('%F'), count: 5)
   end
 end

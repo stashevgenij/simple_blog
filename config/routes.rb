@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
-  root "posts#index"
+  root 'posts#index'
   get 'my_posts' => 'posts#my_posts'
   resources :posts do
-    resources :comments, only: [:create, :update]
+    resources :comments, only: %i[create update]
   end
-  resources :comments, only: [ :edit, :destroy ]
+  resources :comments, only: %i[edit destroy]
   resources :tags, only: [] do
     member do
       get 'posts'

@@ -1,4 +1,4 @@
-require 'rails_helper.rb'
+require 'rails_helper'
 
 feature 'Creating posts' do
   context 'when user logged in' do
@@ -12,7 +12,7 @@ feature 'Creating posts' do
       click_link 'New Post'
       fill_in 'Title', with: title
       fill_in 'Content', with: content
-      check "Do not publish" if scenario.description == 'can create unpublished post'
+      check 'Do not publish' if scenario.description == 'can create unpublished post'
       click_button 'Save Post'
       expect(page).to have_content(title)
       expect(page).to have_content(content)
@@ -20,11 +20,11 @@ feature 'Creating posts' do
     end
 
     scenario 'can create a post' do
-      expect(page).not_to have_content("(unpublished)")
+      expect(page).not_to have_content('(unpublished)')
     end
 
     scenario 'can create unpublished post' do
-      expect(page).to have_content("(unpublished)")
+      expect(page).to have_content('(unpublished)')
     end
   end
 
@@ -32,7 +32,7 @@ feature 'Creating posts' do
     scenario "guest can't create a post" do
       visit '/'
       click_link 'New Post'
-      expect(page).to have_content("You need to log in")        
+      expect(page).to have_content('You need to log in')
     end
   end
 end
