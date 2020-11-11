@@ -1,12 +1,15 @@
 - if notice
   .notification-wrapper
-    .container-fluid
-      .notification
-        %p.alert.alert-success
-          = notice
+    .notification
+      %p.alert.alert-success
+        = notice
 - if alert
   .notification-wrapper
-    .container-fluid
-      .notification
-        %p.alert.alert-danger
-          = alert
+    .notification
+      %p.alert.alert-danger
+        = alert
+- if flash[:error]
+  .notification-wrapper
+    .notification
+      %p.alert.alert-danger
+        = flash[:error]

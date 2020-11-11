@@ -13,18 +13,18 @@ feature 'Editing comment', js: false do
 
       visit post_path(post)
 
-      expect(page).to have_link("Edit comment")
+      expect(page).to have_link("Edit Comment")
     end
 
     scenario 'user updates comment' do
       sign_in user
 
       visit post_path(post)
-      click_on "Edit comment"
+      click_on "Edit Comment"
       
 
       fill_in 'comment_text', with: 'Edited comment.'
-      click_on 'Update Comment'
+      click_on 'Save Comment'
 
       expect(page).to have_content 'Edited comment.'
       expect(comment.reload).to have_attributes(text: "Edited comment.", user: user, post: post)
@@ -35,7 +35,7 @@ feature 'Editing comment', js: false do
 
       visit post_path(post)
 
-      expect(page).not_to have_link("Edit comment")
+      expect(page).not_to have_link("Edit Comment")
     end
   end
 
@@ -47,7 +47,7 @@ feature 'Editing comment', js: false do
 
       visit post_path(post)
 
-      expect(page).not_to have_link("Edit comment")
+      expect(page).not_to have_link("Edit Comment")
     end
   end
 end

@@ -13,18 +13,17 @@ feature 'Creating comments' do
       sign_in commentator
       visit post_path(post)
       fill_in 'comment_text', with: comment_text
-      click_button 'Create Comment'
+      click_button 'Save Comment'
       expect(page).to have_content(comment_text)
-      expect(page).to have_content("Author: #{commentator.email}")
+      expect(page).to have_css(".comment-author", text: commentator.email)
       expect(post.comments.last).to have_attributes(text: comment_text)      
     end
   end
 
   context 'when user is a guest' do
     scenario 'cannot create a comment' do
-      sign_in user
       visit post_path(post)
-      expect(page).not_to have_css("textare#comment_text")   
+      expect(page).not_to have_css("textarea#comment_text")   
     end
   end
 end

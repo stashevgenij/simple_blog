@@ -13,12 +13,13 @@ feature 'Editing post', js: false do
 
     fill_in 'Title', with: 'Edited Title'
     fill_in 'Content', with: 'Edited content.'
-    select_date yesterday_date, from: 'post_created_at'
-    click_on 'Update Post'
+    select_date_and_time yesterday_date, from: 'post_created_at'
+    click_on 'Save Post'
 
     expect(page).to have_content 'Edited Title'
     expect(page).to have_content 'Edited content.'
     expect(page).to have_content yesterday_date.strftime("%F")
-    expect(post.reload).to have_attributes(title: 'Edited Title', content: 'Edited content.', created_at: yesterday_date.beginning_of_day)
+    expect(post.reload).to have_attributes(title: 'Edited Title', content: 'Edited content.')
+    expect(post.reload.created_at).to be_within(1.minute).of yesterday_date
   end
 end

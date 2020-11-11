@@ -59,3 +59,5 @@ gem 'actionpack-action_caching'
 
 # HTML editor
 gem 'ckeditor'
+
+gem 'devise-bootstrap-views', '~> 1.0'

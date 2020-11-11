@@ -1,5 +1,5 @@
 - posts.each do |post|
   - cache post do
-    = render partial: "short_post", locals: { post: post }
+    = render partial: "posts/short_post", locals: { post: post }
 
 = will_paginate posts

@@ -13,7 +13,7 @@ feature 'Creating posts' do
       fill_in 'Title', with: title
       fill_in 'Content', with: content
       check "Do not publish" if scenario.description == 'can create unpublished post'
-      click_button 'Create Post'
+      click_button 'Save Post'
       expect(page).to have_content(title)
       expect(page).to have_content(content)
       expect(Post.last).to have_attributes(title: title, content: content)

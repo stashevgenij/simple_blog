@@ -17,7 +17,7 @@ feature 'Adding tags to post' do
     fill_in 'Title',   with: post.title
     fill_in 'Content', with: post.content
     fill_in 'Tags',    with: tags.join(", ")
-    click_button 'Create Post'
+    click_button 'Save Post'
 
     expect(Post.last.tags.map(&:tag_name)).to eq(tags)
     expect(page).to have_content(tags[0])
@@ -32,7 +32,7 @@ feature 'Adding tags to post' do
 
     visit edit_post_path(post)    
     fill_in 'Tags', with: tags.join(", ")
-    click_button 'Update Post'
+    click_button 'Save Post'
 
     # Custom matcher from support/helpers/have_tags_matcher.rb
     expect(page).to have_tags(tags)
