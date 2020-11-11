@@ -1,7 +1,15 @@
 = form_with(model: [comment.post, comment], local: true) do |form|
-  .field
-    = form.text_area :text
-
-
-  .actions
-    = form.submit
+  - if comment.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(comment.errors.count, "error")
+        prohibited this comment from being saved:
+      %ul
+        - comment.errors.full_messages.each do |message|
+          %li= message
+  .row.mb-4
+    .col.col-sm-10.col-md-10
+      .form-group
+        = form.text_area :text, class: "form-control"
+    .col.col-sm-2.col-md-2
+      = form.submit "Save Comment", class: "btn btn-primary rounded-0"

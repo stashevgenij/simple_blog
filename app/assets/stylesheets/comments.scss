@@ -1,0 +1,14 @@
+.comment {
+  border-radius: 10px;
+  background: white;
+  padding: 20px;
+}
+
+.comment-date, .comment-edit-link { font-size: 12px; }
+
+.comment-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 64px;
+  background: #ced4da;
+}

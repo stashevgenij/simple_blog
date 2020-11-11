@@ -1,5 +1,6 @@
-%p#notice= notice
-%h1 Posts
+.header.d-flex
+  %h1.mb-4 Posts
+  = link_to 'New Post', new_post_path, class: "btn btn-primary new-post-btn"
 
 = render partial: "list_posts", locals: { posts: @posts }
 = render partial: "tags/tag_cloud"

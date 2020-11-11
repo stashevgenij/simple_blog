@@ -12,4 +12,17 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap
  */
+
+.nav-item {
+  padding: 0 10px;
+}
+
+.field {
+  margin-top: 12px;
+}
+
+.tag-cloud {
+  justify-content: center;
+}

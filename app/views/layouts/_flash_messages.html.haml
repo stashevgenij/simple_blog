@@ -1,4 +1,12 @@
-.flash-messages
-  - flash.each do |name, message|
-    %div{class: "flash-#{name}"} 
-      = message
+- if notice
+  .notification-wrapper
+    .container-fluid
+      .notification
+        %p.alert.alert-success
+          = notice
+- if alert
+  .notification-wrapper
+    .container-fluid
+      .notification
+        %p.alert.alert-danger
+          = alert

@@ -54,5 +54,8 @@ gem 'devise'
 gem 'will_paginate', '~> 3.1.0'
 
 # Caching pages/actions
-gem "actionpack-page_caching"
+gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
+
+# HTML editor
+gem 'ckeditor'

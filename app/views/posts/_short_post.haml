@@ -8,9 +8,4 @@
     .post-tags.mb-4
       %b Tags:
       = post.tags_string
-  .card-footer
-    .comment-section
-      = render post.comments.includes(:user)
-      - if user_signed_in?
-        .mt-4
-          = render partial: "comments/form", locals: { comment: post.comments.new }
+    = link_to "Read more...", post

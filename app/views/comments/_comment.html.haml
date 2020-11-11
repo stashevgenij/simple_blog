@@ -1,9 +1,16 @@
-.comment-text
-  = comment.text
-.comment-author
-  Author:
-  = comment.user.email
-
-- if comment.editable? && comment.user == current_user
-  .edit-comment-link
-    = link_to 'Edit comment', edit_comment_path(comment)
+.comment.d-flex.mb-2
+  .col-sm-1.p-0
+    .comment-circle
+  .comment-main.col-sm-11.p-0
+    .comment-author.text-primary.mb-2
+      %b= comment.user.email
+    .comment-text
+      = comment.text
+    .d-flex.mt-2
+      .comment-date
+        %b= comment.created_at.strftime("%F %H:%M")
+      - if comment.editable? && comment.user == current_user
+        .comment-edit-link.ml-2
+          = link_to 'Edit Comment', edit_comment_path(comment)
+          |
+          = link_to 'Delete Comment', comment, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-danger"

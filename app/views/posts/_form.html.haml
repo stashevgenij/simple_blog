@@ -1,22 +1,33 @@
-= form_with(model: post, local: true) do |form|
-  .field
-    = form.label :title
-    = form.text_field :title
-  .field
-    = form.label :content
-    = form.text_area :content
-  .field
-    = form.label :tags_string, "Tags"
-    = form.text_field :tags_string
-  - if form.object.new_record?
+.col-lg-12.p-0.mb-5
+  = javascript_include_tag Ckeditor.cdn_url
+
+  = form_with(model: post, local: true) do |form|
+    - if post.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(post.errors.count, "error")
+          prohibited this post from being saved:
+        %ul
+          - post.errors.full_messages.each do |message|
+            %li= message
     .field
-      = form.label :do_not_publish
-      = form.check_box :do_not_publish
-  - else
+      = form.label :title
+      = form.text_field :title, class: "form-control form-control-sm"
     .field
-      = form.label :created_at
-      = form.date_select :created_at
+      = form.label :content
+      = form.cktext_area :content
+    .field
+      = form.label :tags_string, "Tags"
+      = form.text_field :tags_string, class: "form-control form-control-sm"
+    - if form.object.new_record?
+      .field
+        = form.label :do_not_publish
+        = form.check_box :do_not_publish, class: "form-control form-control-sm"
+    - else
+      .field
+        = form.label :created_at
+        = form.datetime_select :created_at, class: "form-control form-control-sm form-control-date"
 
 
-  .actions
-    = form.submit
+    .actions.mt-4
+      = form.submit "Save Post", class: "btn btn-primary"
